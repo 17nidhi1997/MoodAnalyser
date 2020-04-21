@@ -7,11 +7,6 @@ namespace moodAnalyaserTest
     class analyseMood
     {
         private string message;
-
-        public analyseMood()
-        {
-            this.message = "i am sad";
-        }
         public analyseMood(String message)
         {
             this.message = message;
@@ -25,12 +20,19 @@ namespace moodAnalyaserTest
 
         public string analyseMoodMethod()
         {
-
-            if (message.Contains("sad"))
-                return "SAD";
-            else
+            try
+            {
+                if (message.Contains("sad"))
+                    return "SAD";
+                else
+                    return "HAPPY";
+            }
+            catch(NullReferenceException)
+            {
                 return "HAPPY";
-                      
+            }
         }
+
     }
 }
+
