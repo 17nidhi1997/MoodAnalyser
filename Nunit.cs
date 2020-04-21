@@ -100,6 +100,46 @@ namespace moodAnalyaserTest
             }
         }
 
+           [Test]
+        public void CompareObj_UsingParmeterConstructor()
+        {
+            analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();
+            ConstructorInfo constructor = mood.defaultConstructor(1);
+            object obj_compare = mood.GetParameterizedInstance("analyseMood3", constructor, "I am in sad mood");
+        }
+
+
+        [Test]
+        public void UsingParmConstructor_noSuchClassException()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();
+                ConstructorInfo constructor = mood.defaultConstructor(1);
+                object obj_compare = mood.GetParameterizedInstance("analyseMood3", constructor,"i am happy");
+
+            }
+            catch (analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.No_Such_Class_Exception, e.ex_ty);
+            }
+        }
+
+        [Test]
+        public void UsingParmConstructor_NoSuchMethod()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();
+                ConstructorInfo constructor = mood.defaultConstructor();
+                object obj_compare = mood.GetParameterizedInstance("analyseMood3", constructor,"I am in sad mood");
+
+            }
+            catch (analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.No_Such_Method_Exception, e.ex_ty);
+            }
+        }
 
 
     }
