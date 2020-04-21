@@ -52,5 +52,26 @@ namespace moodAnalyaserTest
             }
         }
 
+        public object GetParameterizedInstance(string classname, ConstructorInfo constructor,String paramValue)
+
+        {
+            try
+            {
+               
+                if (classname != type.Name)
+                    throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Class_Exception, "please enter right mood");
+                if (constructor != type.GetConstructors()[1])
+                    throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Method_Exception, "please enter right mood");
+                object Obj_retuen = Activator.CreateInstance(type,paramValue);
+                return Obj_retuen;
+            }
+            catch (Exception)
+            {
+                throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Method_Exception, "please enter right mood");
+            }
+        }
+
+
+
     }
 }
