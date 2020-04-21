@@ -29,5 +29,78 @@ namespace moodAnalyaserTest
             analyseMood2 mood = new analyseMood2(null);
             Assert.AreEqual("HAPPY", mood.analyseMoodMethod());
         }
+        
+        [Test]
+       public void EmptyException()
+        {
+            try
+            {
+                analyseMood mood = new analyseMood("");
+                Assert.AreEqual("please enter proper mood", mood.analyseMoodMethod());
+            }
+            catch (analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.Empty_Exception, e.ex_ty);
+            }
+        }
+
+        [Test]
+        public void NullException()
+        {
+            try
+            {
+                analyseMood mood = new analyseMood(null);
+
+                Assert.AreEqual("please enter proper mood", mood.analyseMoodMethod());
+            }
+            catch (analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.Null_Exception, e.ex_ty);
+            }
+        }
+
+         [Test]
+        public void compareDefaultConstructor()
+        {
+            analyseMoodFactory<analyseMood> mood = new analyseMoodFactory<analyseMood>();
+            ConstructorInfo constructor = mood.defaultConstructor();
+            object obj_compare = mood.GetInstance("analyseMood", constructor);
+            Assert.IsInstanceOf(typeof(analyseMood3), obj_compare);
+        }
+
+        [Test]
+        public void reflectionNoSuchClassEception()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood> mood = new analyseMoodFactory<analyseMood>();
+                ConstructorInfo constructor = mood.defaultConstructor();
+                object obj_compare = mood.GetInstance("analyseMood", constructor);
+               
+            }
+            catch(analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.No_Such_Class_Exception, e.ex_ty);
+            }
+        }
+
+        [Test]
+        public void reflectionNoSuchMethoEception()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood> mood = new analyseMoodFactory<analyseMood>();
+                ConstructorInfo constructor = mood.defaultConstructor();
+                object obj_compare = mood.GetInstance("analyseMood", constructor);
+                
+            }
+            catch (analyseMoodException e)
+            {
+                Assert.AreEqual(analyseMoodException.Exception_Type.No_Such_Method_Exception, e.ex_ty);
+            }
+        }
+
+
+
     }
 }
