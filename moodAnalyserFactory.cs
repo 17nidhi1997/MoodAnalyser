@@ -70,7 +70,23 @@ namespace moodAnalyaserTest
                 throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Method_Exception, "please enter right mood");
             }
         }
+          public string InvokeMethodUsingReflection()
+        {
+            try
+            {
+                Type type = typeof(analyseMood3);
+                string message = "i am happy";
+                object instance = Activator.CreateInstance(type, message);
+                MethodInfo method = type.GetMethod("analyseMood3");
+                method.Invoke(instance, null);
+                return default;
+            }
+            catch (analyseMoodException)
+            {
+                throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Method_Exception, "please enter right mood");
+            }
 
+        }
 
 
     }
