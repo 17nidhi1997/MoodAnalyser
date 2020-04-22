@@ -141,6 +141,26 @@ namespace moodAnalyaserTest
             }
         }
 
+        
+        [Test]
+        public void InvokemethodUsingReflection_returnHappy()
+        {
+            try
+            {
+
+                analyseMoodFactory<string> mood = new analyseMoodFactory<string>();
+                string result = mood.InvokeMethodUsingReflection();
+                Assert.AreEqual(result, "Happy");
+            }
+            catch (NullReferenceException e)
+            {
+
+                _ = e.StackTrace;
+            }
+        }
+
+
+
 
     }
 }
