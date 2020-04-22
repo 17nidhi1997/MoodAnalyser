@@ -87,7 +87,57 @@ namespace moodAnalyaserTest
             }
 
         }
+        
 
+
+ public string InvokeMethodUsing(string methodName, string fieldName)
+        {
+            Type moodAnalysertype = Type.GetType("analyseMood3");
+            MethodInfo methodInfo = moodAnalysertype.GetMethod(methodName);
+            string[] stringArray = { "I am in Happy mood" };
+            object objectInstance = Activator.CreateInstance(moodAnalysertype, stringArray);
+            try
+            {
+                if (fieldName != null)
+                {
+                    FieldInfo fieldInfo = moodAnalysertype.GetField(fieldName);
+                    if (fieldInfo == null)
+                        throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Field_Exception, "please enter proper mood");
+                    fieldInfo.SetValue(objectInstance, fieldName);
+                }
+            }
+            catch (analyseMoodException)
+            {
+                return "No_Such_Field_Exception";
+
+            }
+            try
+            {
+                if (fieldName == null)
+                {
+                    return analyseMoodException.Exception_Type.Null_Exception.ToString();
+                }
+            }
+            catch (analyseMoodException)
+            {
+                return "Null_Exception";
+            }
+            try
+            {
+                if (methodInfo == null)
+                {
+                    throw new analyseMoodException(analyseMoodException.Exception_Type.No_Such_Method_Exception, "please enter proper mood");
+                }
+
+                string method = (string)methodInfo.Invoke(objectInstance, null);
+                return method;
+            }
+            catch (analyseMoodException)
+            {
+                return "HAPPY";
+
+            }
+        }
 
     }
 }
