@@ -159,8 +159,52 @@ namespace moodAnalyaserTest
             }
         }
 
+        [Test]
+        public void SetFieldValue_shouldReturnHappy()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();
+                string actual = mood.InvokeMethodUsing("analyseMood3", "message");
+                string Expected = "HAPPY";
+                Assert.AreEqual(Expected, actual);
+            }
+            catch (NullReferenceException e)
+            {
 
+                _ = e.StackTrace;
+            }
+        }
+       
+        [Test]
+        public void SetImproperField_throwException()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();
+                string actual = mood.InvokeMethodUsing("analyseMood3", "inproper field name");
+                string Expected = "No_Such_Field_Exception";
+                Assert.AreEqual(Expected, actual);
+            }
+            catch(NullReferenceException e)
+            {
+                _ = e.StackTrace;
+            }
+        }
 
+        [Test]
+        public void SetNullField_throwException()
+        {
+            try
+            {
+                analyseMoodFactory<analyseMood3> mood = new analyseMoodFactory<analyseMood3>();               
+                Assert.AreEqual("Null_Exception", mood.InvokeMethodUsing("analyseMood3", null));
+            }
+            catch (NullReferenceException e)
+            {
+                _ = e.StackTrace;
+            }
+        }
 
     }
 }
